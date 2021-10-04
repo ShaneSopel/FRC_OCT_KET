@@ -18,7 +18,13 @@ void Drivetrain4810::setupdrivetrain()
 		_leftFront->SetInverted(TalonFXInvertType::CounterClockwise);
 		_leftFollower->SetInverted(TalonFXInvertType::FollowMaster);
 
-        _diffDrive->SetRightSideInverted(false);
+        _diffDrive->SetRightSideInverted(false);\
+		
+		_leftFront->ConfigOpenloopRamp(0.2);
+		_leftFollower->ConfigOpenloopRamp(0.2);
+
+		_rghtFront->ConfigOpenloopRamp(0.2);
+		_rghtFollower->ConfigOpenloopRamp(0.2);
 }
 
 void Drivetrain4810::rundrivetrain(frc::XboxController &Controller, double m_LimelightDriveCmd, double m_LimelightTurnCmd, bool m_LimelightHasTarget)

@@ -3,7 +3,9 @@
 
 void Intake4810::setupintake()
 {
-   
+    _Conveyor->ConfigOpenloopRamp(0.2);
+    _FeederWheel->ConfigOpenloopRamp(0.2);
+    _Intake->ConfigOpenloopRamp(0.2);
 }
 
 void Intake4810::forwardintake(frc::XboxController &DriveController)
