@@ -92,33 +92,30 @@ void Drivetrain4810::Update_Limelight_Tracking(frc::XboxController &Controller)
   double ta = table->GetNumber("ta",0.0);
   double tv = table->GetNumber("tv",0.0);
 
-  if (tv < 1.0)
+  bool do_limelight = Controller.GetAButtonPressed();
+
+  if (do_limelight == true)
   {
-        m_LimelightHasTarget = false;
-        m_LimelightDriveCmd = 0.0;
-        m_LimelightTurnCmd = 0.0;
+	if (tx < 1.0)
+	{
+			m_LimelightHasTarget = false;
+			m_LimelightDriveCmd = 0.0;
+			m_LimelightTurnCmd = 0.0;
+	}
+	else if (tx > 1.0)
+	{
+			m_LimelightHasTarget = true;
+
+			// Proportional steering
+			m_LimelightTurnCmd = tx*STEER_K;
+			m_LimelightTurnCmd = clamp(m_LimelightTurnCmd,-MAX_STEER,MAX_STEER);
+
+			// drive forward until the target area reaches our desired area
+			m_LimelightDriveCmd = (DESIRED_TARGET_AREA - ta) * DRIVE_K;
+			m_LimelightDriveCmd = clamp(m_LimelightDriveCmd,-MAX_DRIVE,MAX_DRIVE);
+	}
+			_diffDrive->ArcadeDrive(m_LimelightDriveCmd, m_LimelightTurnCmd);
   }
-  else
-  {
-        m_LimelightHasTarget = true;
 
-        // Proportional steering
-        m_LimelightTurnCmd = tx*STEER_K;
-        m_LimelightTurnCmd = clamp(m_LimelightTurnCmd,-MAX_STEER,MAX_STEER);
-
-        // drive forward until the target area reaches our desired area
-        m_LimelightDriveCmd = (DESIRED_TARGET_AREA - ta) * DRIVE_K;
-        m_LimelightDriveCmd = clamp(m_LimelightDriveCmd,-MAX_DRIVE,MAX_DRIVE);
-
-         bool do_limelight = Controller.GetAButton();
-     if (do_limelight)
-     {
-         _diffDrive->ArcadeDrive(m_LimelightDriveCmd, m_LimelightTurnCmd);
-     }
-     else
-     {
-         _diffDrive->ArcadeDrive(0, 0); 
-     }
-  }
 }
   
