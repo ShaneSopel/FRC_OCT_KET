@@ -20,14 +20,6 @@
 
 #include <frc/Timer.h>
 
-double clamp(double in,double minval,double maxval)
-{
-  if (in > maxval) return maxval;
-  if (in < minval) return minval;
-  return in;
-}
-
-
 Drivetrain4810 drive;
 Intake4810 intake;
 Solenoid4810 Sol;
@@ -86,7 +78,7 @@ void Robot::AutonomousPeriodic() {
   drive.setupdrivetrain();
   shoot.setupShooter(); 
   drive.autoDrive();
-  frc::Wait(10);
+  //frc::Wait(10);
   
   
 
@@ -120,54 +112,12 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() 
 {
 
-   Update_Limelight_Tracking();
-
-   drive.rundrivetrain(DriveController, m_LimelightDriveCmd, m_LimelightTurnCmd, m_LimelightHasTarget);
+   drive.Update_Limelight_Tracking(DriveController);
+   drive.rundrivetrain(DriveController);
    intake.forwardintake(DriveController);
    Sol.Solenoid1(DriveController); 
    shoot.Shooter(OperatorController);
    intake.Conveyor(OperatorController);
-}
-
-void Robot::Update_Limelight_Tracking()
-{
-    // Proportional Steering Constant:
-  // If your robot doesn't turn fast enough toward the target, make this number bigger
-  // If your robot oscillates (swings back and forth past the target) make this smaller
-  const double STEER_K = 0.05;
-
-  // Proportional Drive constant: bigger = faster drive
-  const double DRIVE_K = 0.26;
-
-  // Area of the target when your robot has reached the goal
-  const double DESIRED_TARGET_AREA = 13.0;
-  const double MAX_DRIVE = 0.65;
-  const double MAX_STEER = 1.0f;
-
-  std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
-  double tx = table->GetNumber("tx",0.0);
-  double ty = table->GetNumber("ty",0.0);
-  double ta = table->GetNumber("ta",0.0);
-  double tv = table->GetNumber("tv",0.0);
-
-  if (tv < 1.0)
-  {
-        m_LimelightHasTarget = false;
-        m_LimelightDriveCmd = 0.0;
-        m_LimelightTurnCmd = 0.0;
-  }
-  else
-  {
-        m_LimelightHasTarget = true;
-
-        // Proportional steering
-        m_LimelightTurnCmd = tx*STEER_K;
-        m_LimelightTurnCmd = clamp(m_LimelightTurnCmd,-MAX_STEER,MAX_STEER);
-
-        // drive forward until the target area reaches our desired area
-        m_LimelightDriveCmd = (DESIRED_TARGET_AREA - ta) * DRIVE_K;
-        m_LimelightDriveCmd = clamp(m_LimelightDriveCmd,-MAX_DRIVE,MAX_DRIVE);
-  }
 }
 
 void Robot::DisabledInit() {}
