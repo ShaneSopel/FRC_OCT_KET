@@ -17,13 +17,14 @@
 #include "Intake4810.h"
 #include "Solenoid4810.h"
 #include "Shooter4810.h"
+#include "RackandPin4810.h"
 
 #include <frc/Timer.h>
 
 Drivetrain4810 drive;
 Intake4810 intake;
-Solenoid4810 Sol;
 Shooter4810 shoot;
+RackandPin4810 rack;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
@@ -32,6 +33,7 @@ void Robot::RobotInit() {
    
    drive.setupdrivetrain();
    shoot.setupShooter();
+   rack.setupRackandPin();
 
 }
 
@@ -115,9 +117,9 @@ void Robot::TeleopPeriodic()
    drive.Update_Limelight_Tracking(DriveController);
    drive.rundrivetrain(DriveController);
    intake.forwardintake(DriveController);
-   Sol.Solenoid1(DriveController); 
    shoot.Shooter(OperatorController);
    intake.Conveyor(OperatorController);
+   rack.RackandPin(DriveController);
 }
 
 void Robot::DisabledInit() {}

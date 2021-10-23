@@ -14,7 +14,7 @@ public:
 
 private:
 
-    WPI_TalonFX * _RackandPin = new WPI_TalonFX(12);
-	WPI_TalonFX * _RackandPinFollower = new WPI_TalonFX(11);
+    WPI_TalonFX * _RackandPin = new WPI_TalonFX(5);
+	WPI_TalonFX * _RackandPinFollower = new WPI_TalonFX(1);
 
 };

@@ -19,10 +19,10 @@ public:
 private:
 
 // Intake Motors
-WPI_TalonSRX *_Conveyor = new WPI_TalonSRX(9);
-WPI_TalonSRX *_FeederWheel = new WPI_TalonSRX(10);
-WPI_TalonSRX *_Intake = new WPI_TalonSRX(8);
+WPI_TalonSRX *_Conveyor = new WPI_TalonSRX(2);
+WPI_TalonSRX *_FeederWheel = new WPI_TalonSRX(3);
+WPI_TalonSRX *_Intake = new WPI_TalonSRX(4);
 
-frc::DoubleSolenoid intakeSolenoid{3,4};
+//frc::DoubleSolenoid intakeSolenoid{3,4};
 
 };

@@ -23,11 +23,11 @@ public:
 private:
 
   //DriveTrain m_drive;
-    WPI_TalonFX * _rghtFront = new WPI_TalonFX(3);
-	WPI_TalonFX * _rghtFollower = new WPI_TalonFX(4);
+    WPI_TalonFX * _rghtFront = new WPI_TalonFX(12);
+	WPI_TalonFX * _rghtFollower = new WPI_TalonFX(7);
 
-	WPI_TalonFX * _leftFront = new WPI_TalonFX(1);
-	WPI_TalonFX * _leftFollower = new WPI_TalonFX(2);
+	WPI_TalonFX * _leftFront = new WPI_TalonFX(0);
+	WPI_TalonFX * _leftFollower = new WPI_TalonFX(8);
 
 	frc::DifferentialDrive * _diffDrive = new frc::DifferentialDrive(*_leftFront,
 			*_rghtFront);

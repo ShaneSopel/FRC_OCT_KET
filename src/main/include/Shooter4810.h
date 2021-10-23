@@ -14,7 +14,7 @@ public:
 
 private:
 
-    WPI_TalonFX * _shooter = new WPI_TalonFX(12);
-	WPI_TalonFX * _shooterFollower = new WPI_TalonFX(11);
+    WPI_TalonFX * _shooter = new WPI_TalonFX(6);
+	WPI_TalonFX * _shooterFollower = new WPI_TalonFX(10);
 
 };
