@@ -40,6 +40,7 @@ void Intake4810::Conveyor(frc::XboxController &OperatorController)
         _FeederWheel->Set(ControlMode::PercentOutput, 0);   
     }
 }
+
 void Intake4810::autoconveyor()
 {
          _Conveyor->Set(ControlMode::PercentOutput, -50);

@@ -33,13 +33,13 @@ void RackandPin4810::autoRackandPin()
 void RackandPin4810::RackandPin(frc::XboxController &Controller)
 {
 
-   if (Controller.GetBumperPressed(frc::GenericHID::JoystickHand::kLeftHand))
+   if (Controller.GetBumper(frc::GenericHID::JoystickHand::kLeftHand))
       {
-         _RackandPin->Set(ControlMode::PercentOutput, 1);
+         _RackandPin->Set(ControlMode::PercentOutput, 1*.7);
       }
-      else if (Controller.GetBumperPressed(frc::GenericHID::JoystickHand::kRightHand))
+      else if (Controller.GetBumper(frc::GenericHID::JoystickHand::kRightHand))
       {
-         _RackandPin->Set(ControlMode::PercentOutput, -1);
+         _RackandPin->Set(ControlMode::PercentOutput, -1*.7);
       }
       else
       {
