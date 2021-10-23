@@ -19,8 +19,6 @@ void RackandPin4810::setupRackandPin()
     /* Zero the sensor */
     _RackandPin->SetSelectedSensorPosition(0, 0, 10);
 
-
-
 }
 
 void RackandPin4810::autoRackandPin()
@@ -35,30 +33,17 @@ void RackandPin4810::autoRackandPin()
 void RackandPin4810::RackandPin(frc::XboxController &Controller)
 {
 
-    
-   //    if(Controller.GetAButtonPressed())
-   
-//double direction = 1;
-//       double velocityRPM = 10000;
-//        double Vel = 1;
-
-//        _shooter->Config_kF(0, 0.3, 10);
-//        _shooter->Config_kP(0, 0.1, 10);
-//        _shooter->Config_kI(0, 0.0, 10);
-//        _shooter->Config_kD(0, 0.0, 10);
-
-        // shooter
-//        _shooter->Set(TalonFXControlMode::PercentOutput , 1);       
-
-
-  /* Position mode - button just pressed */
-	_RackandPin->Set(ControlMode::PercentOutput, Controller.GetY(frc::GenericHID::JoystickHand::kLeftHand) * -1); /* 40 Amps in either direction */
-	
-		
-   if (Controller.GetBButtonPressed())
-   {
-       _RackandPin->Set(0);
-   }
- 
+   if (Controller.GetBumperPressed(frc::GenericHID::JoystickHand::kLeftHand))
+      {
+         _RackandPin->Set(ControlMode::PercentOutput, 1);
+      }
+      else if (Controller.GetBumperPressed(frc::GenericHID::JoystickHand::kRightHand))
+      {
+         _RackandPin->Set(ControlMode::PercentOutput, -1);
+      }
+      else
+      {
+         _RackandPin->Set(0);
+      }
 
 }

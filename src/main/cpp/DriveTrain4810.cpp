@@ -35,8 +35,49 @@ void Drivetrain4810::rundrivetrain(frc::XboxController &Controller)
 	double forw = +1 * Controller.GetY(frc::GenericHID::JoystickHand::kLeftHand); /* positive is forward */
 	double turn = -1 * Controller.GetX(frc::GenericHID::JoystickHand::kRightHand); /* positive is right */
 
-	if (fabs(forw) < 0.10)
-		forw = 0;
+int currentJoystick = forw;
+    int lastJoystick = 0;
+
+    if (forw == 1)
+        lastJoystick = 1;
+
+    if (forw == -1)
+        lastJoystick = -1;
+
+    if (lastJoystick > currentJoystick)
+    {
+        if (currentJoystick == 0)
+        {
+            {
+                _leftFront->Set(ControlMode::PercentOutput, -1);
+                _rghtFront->Set(ControlMode::PercentOutput, -1);
+            }
+            frc::Wait(0.25);
+            {
+                _leftFront->Set(ControlMode::PercentOutput, 0);
+                _rghtFront->Set(ControlMode::PercentOutput, 0);
+                lastJoystick = 0;
+            }
+        }
+    }
+
+    if (lastJoystick < currentJoystick)
+    {
+        if (currentJoystick == 0)
+        {
+            {
+                _leftFront->Set(ControlMode::PercentOutput, 1);
+                _rghtFront->Set(ControlMode::PercentOutput, 1);
+            }
+            frc::Wait(0.25);
+            {
+                _leftFront->Set(ControlMode::PercentOutput, 0);
+                _rghtFront->Set(ControlMode::PercentOutput, 0);
+                lastJoystick = 0;
+            }
+        }
+    }
+
 	if (fabs(turn) < 0.10)
 		turn = 0;
 
